@@ -12,6 +12,12 @@ import NecessidadeFormPage from './paginas/necessidades/NecessidadeFormPage'
 
 import CategoriaListaPage from './paginas/categorias/CategoriaListaPage'
 import CategoriaFormPage from './paginas/categorias/CategoriaFormPage'
+import DoacaoFormPage from './paginas/doacoes/DoacaoFormPage'
+import MinhasDoacoesPage from './paginas/doacoes/MinhasDoacoesPage'
+import DoacaoAdminPage from './paginas/doacoes/DoacaoAdminPage'
+import TransparenciaPage from './paginas/transparencia/TransparenciaPage'
+import RecuperarSenhaPage from './paginas/RecuperarSenhaPage'
+import NecessidadeDetalhePage from './paginas/necessidades/NecessidadeDetalhePage'
 
 /**
  * ====================================================================
@@ -37,7 +43,9 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<CadastroPage />} />
+        <Route path="/recuperar-senha" element={<RecuperarSenhaPage />} />
         <Route path="/necessidades" element={<NecessidadesPublicasPage />} />
+        <Route path="/necessidades/:id" element={<NecessidadeDetalhePage />} />
 
         {/* ---------- administrativo: categorias (MOLDE) ---------- */}
         <Route path="/admin/categorias"
@@ -56,7 +64,11 @@ export default function App() {
                element={<RotaProtegida somenteAdmin><NecessidadeFormPage /></RotaProtegida>} />
 
         {/* ================= FRENTE 1 - DOACOES ================= */}
-        {/* adicione suas rotas aqui */}
+        <Route path="/doar/necessidade/:id" element={<RotaProtegida><DoacaoFormPage /></RotaProtegida>} />
+        <Route path="/doar/campanha/:id" element={<RotaProtegida><DoacaoFormPage destino="campanha" /></RotaProtegida>} />
+        <Route path="/minhas-doacoes" element={<RotaProtegida><MinhasDoacoesPage /></RotaProtegida>} />
+        <Route path="/admin/doacoes" element={<RotaProtegida somenteAdmin><DoacaoAdminPage /></RotaProtegida>} />
+        <Route path="/transparencia" element={<TransparenciaPage />} />
 
         {/* ================= FRENTE 2 - CAMPANHAS ================= */}
         {/* adicione suas rotas aqui */}

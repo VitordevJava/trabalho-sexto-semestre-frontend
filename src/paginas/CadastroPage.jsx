@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { api } from '../servicos/api'
+import Brand from '../componentes/Brand'
 
 /** RF01 - cadastro publico. Sempre cria perfil USUARIO. */
 export default function CadastroPage() {
@@ -32,56 +33,58 @@ export default function CadastroPage() {
   }
 
   return (
-    <div className="caixa-login">
-      <div className="cartao">
-        <h1 style={{ fontSize: '20px', marginTop: 0 }}>Criar conta</h1>
+    <section className="auth-pagina auth-pagina-cadastro">
+      <div className="auth-card">
+        <Brand />
+        <div className="auth-intro"><p className="sobrelinha">Comece por aqui</p><h1>Crie sua conta</h1><p>Leva menos de dois minutos para começar a ajudar.</p></div>
 
         {erro && <div className="alerta erro">{erro}</div>}
 
-        <form onSubmit={aoEnviar}>
+        <form onSubmit={aoEnviar} className="auth-form auth-form-grid">
           <div className="campo">
             <label htmlFor="nome">Nome *</label>
-            <input id="nome" name="nome" value={formulario.nome} onChange={aoDigitar} />
+            <input id="nome" name="nome" autoComplete="name" required placeholder="Seu nome completo" value={formulario.nome} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="email">E-mail *</label>
-            <input id="email" name="email" type="email" value={formulario.email} onChange={aoDigitar} />
+            <input id="email" name="email" type="email" autoComplete="email" required placeholder="voce@email.com" value={formulario.email} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="senha">Senha * (minimo 8 caracteres)</label>
-            <input id="senha" name="senha" type="password" value={formulario.senha} onChange={aoDigitar} />
+            <input id="senha" name="senha" type="password" autoComplete="new-password" minLength="8" required placeholder="Minimo de 8 caracteres" value={formulario.senha} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="confirmacaoSenha">Confirmar senha *</label>
-            <input id="confirmacaoSenha" name="confirmacaoSenha" type="password"
+            <input id="confirmacaoSenha" name="confirmacaoSenha" type="password" autoComplete="new-password" required placeholder="Repita sua senha"
                    value={formulario.confirmacaoSenha} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="telefone">Telefone</label>
-            <input id="telefone" name="telefone" value={formulario.telefone} onChange={aoDigitar} />
+            <input id="telefone" name="telefone" type="tel" autoComplete="tel" placeholder="(00) 00000-0000" value={formulario.telefone} onChange={aoDigitar} />
           </div>
           <div className="campo">
             <label htmlFor="dataNascimento">Data de nascimento *</label>
-            <input id="dataNascimento" name="dataNascimento" type="date"
+            <input id="dataNascimento" name="dataNascimento" type="date" required
                    value={formulario.dataNascimento} onChange={aoDigitar} />
           </div>
-          <div className="campo">
-            <label style={{ fontWeight: 400 }}>
-              <input type="checkbox" name="aceiteTermos" checked={formulario.aceiteTermos}
-                     onChange={aoDigitar} style={{ width: 'auto', marginRight: '8px' }} />
+          <div className="campo campo-termos">
+            <label>
+              <input type="checkbox" name="aceiteTermos" required checked={formulario.aceiteTermos}
+                     onChange={aoDigitar} />
               Aceito os Termos de Uso e a Politica de Privacidade *
             </label>
           </div>
 
-          <button className="botao primario" type="submit" disabled={enviando} style={{ width: '100%' }}>
+          <button className="botao primario botao-bloco" type="submit" disabled={enviando}>
             {enviando ? 'Cadastrando...' : 'Cadastrar'}
           </button>
         </form>
 
-        <p style={{ fontSize: '14px', marginBottom: 0 }}>
+        <p className="auth-alternativa">
           Ja tem conta? <Link to="/login">Entrar</Link>
         </p>
       </div>
-    </div>
+      <div className="auth-ondas" aria-hidden="true"><i /><b /></div>
+    </section>
   )
 }

@@ -1,5 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { usuarioLogado, sair, ehAdministrador } from '../servicos/auth'
+import Brand from './Brand'
+import BottomNav from './BottomNav'
+import Icone from './Icone'
 
 /**
  * Menu do topo + moldura de todas as telas.
@@ -14,20 +17,27 @@ export default function Layout({ children }) {
   const usuario = usuarioLogado()
   const admin = ehAdministrador()
   const navegar = useNavigate()
+  const localizacao = useLocation()
+  const paginaAutenticacao = ['/login', '/cadastro', '/recuperar-senha'].includes(localizacao.pathname)
 
   function aoSair() {
     sair()
     navegar('/login')
   }
 
+  if (paginaAutenticacao) return <main className="auth-layout">{children}</main>
+
   return (
     <>
       <header className="cabecalho">
-        <span className="marca">BemDoar</span>
+        <div className="cabecalho-interno">
+        <Brand compacto escuro />
+        <nav className="navegacao" aria-label="Navegacao principal">
 
         {/* ---------- publico (todo mundo ve) ---------- */}
-        <Link to="/">Inicio</Link>
-        <Link to="/necessidades">Necessidades</Link>
+        <NavLink to="/" end>Inicio</NavLink>
+        <NavLink to="/necessidades">Necessidades</NavLink>
+        <NavLink to="/transparencia">Transparencia</NavLink>
         {/* FRENTE 2 - adicione aqui: <Link to="/campanhas">Campanhas</Link> */}
         {/* FRENTE 3 - adicione aqui: <Link to="/oportunidades">Voluntariado</Link> */}
         {/* FRENTE 4 - adicione aqui: <Link to="/acoes">Acoes sociais</Link> */}
@@ -35,27 +45,31 @@ export default function Layout({ children }) {
         {/* ---------- area administrativa ---------- */}
         {admin && <Link to="/admin/categorias">Categorias</Link>}
         {admin && <Link to="/admin/necessidades">Gerir necessidades</Link>}
-        {/* FRENTE 1 - adicione aqui: <Link to="/admin/doacoes">Gerir doacoes</Link> */}
+        {usuario && !admin && <NavLink to="/minhas-doacoes">Minhas doacoes</NavLink>}
+        {admin && <NavLink to="/admin/doacoes">Gerir doacoes</NavLink>}
         {/* FRENTE 2 - adicione aqui: <Link to="/admin/campanhas">Gerir campanhas</Link> */}
         {/* FRENTE 3 - adicione aqui: <Link to="/admin/oportunidades">Gerir voluntariado</Link> */}
         {/* FRENTE 4 - adicione aqui: <Link to="/admin/acoes">Gerir acoes</Link> */}
 
+        </nav>
         <span className="direita">
           {usuario ? (
             <>
-              <span>{usuario.nome}</span>
-              <button className="botao pequeno" onClick={aoSair}>Sair</button>
+              <span className="usuario-cabecalho"><Icone nome="usuario" tamanho={18} />{usuario.nome}</span>
+              <button className="botao botao-cabecalho" onClick={aoSair} aria-label="Sair"><Icone nome="sair" tamanho={18} />Sair</button>
             </>
           ) : (
             <>
-              <Link to="/login">Entrar</Link>
-              <Link to="/cadastro">Criar conta</Link>
+              <Link className="link-entrar" to="/login">Entrar</Link>
+              <Link className="botao botao-claro" to="/cadastro">Criar conta</Link>
             </>
           )}
         </span>
+        </div>
       </header>
 
       <main className="container">{children}</main>
+      <BottomNav />
     </>
   )
 }

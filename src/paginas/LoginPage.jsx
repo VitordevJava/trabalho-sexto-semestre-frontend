@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { entrar } from '../servicos/auth'
+import Brand from '../componentes/Brand'
 
 /** RF02 - login. */
 export default function LoginPage() {
@@ -25,33 +26,36 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="caixa-login">
-      <div className="cartao">
-        <h1 style={{ fontSize: '20px', marginTop: 0 }}>Entrar no BemDoar</h1>
+    <section className="auth-pagina">
+      <div className="auth-decor auth-decor-topo" />
+      <div className="auth-card">
+        <Brand />
+        <div className="auth-intro"><p className="sobrelinha">Bem-vindo de volta</p><h1>Acesse sua conta</h1><p>Continue acompanhando suas doacoes e o impacto gerado.</p></div>
 
         {erro && <div className="alerta erro">{erro}</div>}
 
-        <form onSubmit={aoEnviar}>
+        <form onSubmit={aoEnviar} className="auth-form">
           <div className="campo">
             <label htmlFor="email">E-mail</label>
-            <input id="email" type="email" value={email}
+            <input id="email" type="email" autoComplete="email" required placeholder="voce@email.com" value={email}
                    onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="campo">
             <label htmlFor="senha">Senha</label>
-            <input id="senha" type="password" value={senha}
+            <input id="senha" type="password" autoComplete="current-password" required placeholder="Sua senha" value={senha}
                    onChange={(e) => setSenha(e.target.value)} />
           </div>
-          <button className="botao primario" type="submit" disabled={enviando}
-                  style={{ width: '100%' }}>
+          <div className="auth-ajuda"><Link to="/recuperar-senha">Esqueci minha senha</Link></div>
+          <button className="botao primario botao-bloco" type="submit" disabled={enviando}>
             {enviando ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
 
-        <p style={{ fontSize: '14px', marginBottom: 0 }}>
-          Nao tem conta? <Link to="/cadastro">Criar conta</Link>
+        <p className="auth-alternativa">
+          Ainda nao participa? <Link to="/cadastro">Criar conta</Link>
         </p>
       </div>
-    </div>
+      <div className="auth-ondas" aria-hidden="true"><i /><b /></div>
+    </section>
   )
 }
