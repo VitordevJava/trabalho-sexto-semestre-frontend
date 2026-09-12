@@ -1,0 +1,140 @@
+/* ============================================================
+   CSS unico do BemDoar.
+   Voce NAO precisa escrever CSS novo. Use as classes daqui.
+
+   Classes disponiveis:
+     .container      caixa central da pagina
+     .cartao         caixa branca com borda
+     .titulo-pagina  titulo grande + botao a direita
+     .botao          botao padrao (cinza)
+     .botao.primario botao azul (acao principal)
+     .botao.perigo   botao vermelho (excluir)
+     .botao.pequeno  botao menor para dentro de tabela
+     .tabela         tabela de listagem
+     .campo          bloco de <label> + <input>
+     .alerta.erro    faixa vermelha de erro
+     .alerta.ok      faixa verde de sucesso
+     .vazio          texto de "nenhum registro encontrado"
+     .etiqueta       selo colorido de situacao
+     .progresso      barra de progresso
+     .filtros        linha de filtros de busca
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f4f6f8;
+  color: #1f2933;
+}
+
+a { color: #1565c0; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- topo ---------- */
+.cabecalho {
+  background: #1565c0;
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cabecalho .marca { font-size: 20px; font-weight: 700; margin-right: 12px; }
+.cabecalho a { color: #fff; font-size: 14px; }
+.cabecalho .direita { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 14px; }
+
+/* ---------- estrutura ---------- */
+.container { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+
+.cartao {
+  background: #fff;
+  border: 1px solid #dfe3e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.titulo-pagina {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.titulo-pagina h1 { font-size: 22px; margin: 0; }
+
+/* ---------- botoes ---------- */
+.botao {
+  display: inline-block;
+  background: #e4e7eb;
+  color: #1f2933;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.botao:hover { filter: brightness(0.95); text-decoration: none; }
+.botao.primario { background: #1565c0; color: #fff; }
+.botao.perigo { background: #c62828; color: #fff; }
+.botao.pequeno { padding: 5px 10px; font-size: 13px; }
+.botao:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- tabela ---------- */
+.tabela { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tabela th, .tabela td { text-align: left; padding: 10px; border-bottom: 1px solid #e4e7eb; }
+.tabela th { background: #f0f2f5; font-weight: 600; }
+.tabela td.acoes { white-space: nowrap; display: flex; gap: 6px; }
+
+/* ---------- formulario ---------- */
+.campo { margin-bottom: 14px; }
+.campo label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+.campo input, .campo select, .campo textarea {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+}
+.campo textarea { min-height: 90px; resize: vertical; }
+.acoes-form { display: flex; gap: 10px; margin-top: 18px; }
+
+/* ---------- avisos ---------- */
+.alerta { padding: 11px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 14px; }
+.alerta.erro { background: #fdecea; color: #a61b0e; border: 1px solid #f5c6c2; }
+.alerta.ok   { background: #e6f4ea; color: #1b5e20; border: 1px solid #b7dfc1; }
+
+.vazio { padding: 28px; text-align: center; color: #7b8794; font-size: 14px; }
+
+/* ---------- etiquetas de situacao ---------- */
+.etiqueta {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e4e7eb;
+  color: #3e4c59;
+}
+.etiqueta.verde    { background: #e6f4ea; color: #1b5e20; }
+.etiqueta.amarela  { background: #fff4e5; color: #8a5300; }
+.etiqueta.vermelha { background: #fdecea; color: #a61b0e; }
+.etiqueta.cinza    { background: #e4e7eb; color: #52606d; }
+
+/* ---------- barra de progresso ---------- */
+.progresso { background: #e4e7eb; border-radius: 10px; height: 10px; overflow: hidden; width: 140px; }
+.progresso > div { background: #2e7d32; height: 100%; }
+
+/* ---------- filtros ---------- */
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 16px; }
+.filtros .campo { margin-bottom: 0; min-width: 160px; }
+
+/* ---------- login ---------- */
+.caixa-login { max-width: 380px; margin: 60px auto; }
