@@ -31,5 +31,3 @@ Copie estes dois arquivos e troque os nomes. Nao comece do zero.
 
 `src/App.jsx` e `src/componentes/Layout.jsx` sao editados por todos,
 mas cada frente tem a SUA secao marcada com comentario. Mexa so na sua.
-
-<!-- Submissao do Frontend -->
