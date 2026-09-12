@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../servicos/api'
+import { Link } from 'react-router-dom'
+import Icone from '../componentes/Icone'
 
 /** RF04 - perfil institucional publico. */
 export default function HomePage() {
@@ -16,16 +18,22 @@ export default function HomePage() {
   if (!instituicao) return <div className="vazio">Carregando...</div>
 
   return (
-    <div>
-      <div className="titulo-pagina"><h1>{instituicao.nome}</h1></div>
-      <div className="cartao">
-        <p>{instituicao.descricao}</p>
-        <p><strong>Missao:</strong> {instituicao.missao}</p>
-        <p><strong>Area de atuacao:</strong> {instituicao.areaAtuacao}</p>
-        <p><strong>Publico atendido:</strong> {instituicao.publicoAtendido}</p>
-        <p><strong>Endereco:</strong> {instituicao.logradouro}, {instituicao.numero} - {instituicao.bairro}, {instituicao.cidade}/{instituicao.estado}</p>
-        <p><strong>Contato:</strong> {instituicao.telefone} {instituicao.email}</p>
-      </div>
+    <div className="home">
+      <section className="home-hero">
+        <div className="home-hero-copy"><p className="sobrelinha">Uma rede de cuidado</p><h1>Doar amor,<br/><em>espalhar esperança.</em></h1><p>{instituicao.missao}</p><div className="hero-acoes"><Link className="botao primario" to="/necessidades"><Icone nome="coracao" tamanho={19}/>Quero ajudar</Link><Link className="botao secundario" to="/transparencia">Ver nosso impacto</Link></div></div>
+        <div className="home-hero-imagem"><span className="selo-impacto">Juntos, fazemos mais</span><img src="/assets/familia-doacao-creme.png" alt="Familia reunida com uma caixa de alimentos e itens de higiene recebidos por doacao" /></div>
+      </section>
+
+      <section className="atalhos" aria-label="Acessos rapidos">
+        <Link to="/necessidades"><span><Icone nome="caixa" /></span><div><strong>Doacoes</strong><small>Veja o que precisamos</small></div></Link>
+        <Link to="/transparencia"><span><Icone nome="alvo" /></span><div><strong>Nosso impacto</strong><small>Acompanhe os resultados</small></div></Link>
+        <Link to="/cadastro"><span><Icone nome="megafone" /></span><div><strong>Participe</strong><small>Entre para essa rede</small></div></Link>
+      </section>
+
+      <section className="secao-institucional">
+        <div><p className="sobrelinha">Quem somos</p><h2>Cuidado que chega onde precisa.</h2><p>{instituicao.descricao}</p><p>Atendemos <strong>{instituicao.publicoAtendido.toLowerCase()}</strong> em {instituicao.cidade}/{instituicao.estado}.</p></div>
+        <blockquote><span>“</span><p>Quando uma doacao chega, ela carrega mais que um item. Carrega a certeza de que ninguem esta sozinho.</p><footer>Equipe {instituicao.nome}</footer></blockquote>
+      </section>
     </div>
   )
 }
